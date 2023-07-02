@@ -32,8 +32,7 @@ def split_top_left_image(image_file):
         width, height = im.size
         mid_x = width // 2
         mid_y = height // 2
-        top_left = im.crop((0, 0, mid_x, mid_y))
-        return top_left
+        return im.crop((0, 0, mid_x, mid_y))
 
 async def download_image(url, filename):
     response = requests.get(url)
@@ -58,7 +57,7 @@ async def download_image(url, filename):
         file_prefix = os.path.splitext(filename)[0]
         # Split the image and save the output images with dynamic names in the output folder
         top_left = split_top_left_image(input_file)
-        ret_path = os.path.join(output_folder, file_prefix + '_top_left.jpg')
+        ret_path = os.path.join(output_folder, f'{file_prefix}_top_left.jpg')
         top_left.save(ret_path)
         os.remove(f_response_img)
         return ret_path
